@@ -1,15 +1,15 @@
 #!/bin/bash
 
 
-echo "Atualizando pacotes do sistema..."
+echo "Update System Package"
 sudo apt update && sudo apt upgrade -y
 
 
-echo "Instalando dependências necessárias..."
+echo "Dependencies Install"
 sudo apt install -y curl wget gnupg lsb-release apt-transport-https unzip software-properties-common ca-certificates
 
 
-echo "Instalando Terraform..."
+echo "Terraform Install.."
 wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
 unzip terraform_1.6.0_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
@@ -17,20 +17,20 @@ rm terraform_1.6.0_linux_amd64.zip
 terraform -version
 
 
-echo "Instalando Docker e Docker Compose..."
+echo "Installing Docker"
 sudo apt-get remove docker docker-engine docker.io containerd runc -y
 sudo apt install -y docker.io
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
 
 
-echo "Instalando docker-compose..."
+echo "Installing docker-compose..."
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
 
-echo "Instalando NVM e Node.js..."
+echo "Installing NVM e Node.js..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -38,10 +38,8 @@ nvm install --lts
 node -v
 npm -v
 
-# ------------------------------
-# 4. Instalar Ansible
-# ------------------------------
-echo "Instalando Ansible..."
+
+echo "Installing Ansible..."
 sudo apt update
 sudo apt install -y ansible
 ansible --version
